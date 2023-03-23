@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,11 +55,18 @@ public class Cyclist implements Serializable {
 	@JoinColumn (name = "team_id")
 	private Team team;
 
-	public Cyclist(String firstName, String lastName, LocalDate birthDate, String nationality) {
+	//Añade propiedad teamName a JSON 
+	@JsonProperty("teamName")
+	public String getTeamName() {
+	    return team != null ? team.getName() : null;
+	}
+
+	public Cyclist(String firstName, String lastName, LocalDate birthDate, String nationality, Team team) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.nationality = nationality;
+		this.team = team;
 	}
 }

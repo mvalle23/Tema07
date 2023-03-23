@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -44,8 +44,7 @@ public class Team implements Serializable{
 	private String manager;
 	
 	@JsonManagedReference
-	@OneToMany
-	@JoinColumn (name = "team_id")
+	@OneToMany (mappedBy = "team",cascade = CascadeType.ALL)
 	List <Cyclist> cyclists = new ArrayList<>();
 
 	public Team(String name, String city, String nationality, String manager) {
