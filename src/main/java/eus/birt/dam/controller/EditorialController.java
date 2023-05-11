@@ -15,50 +15,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import eus.birt.dam.domain.Team;
-import eus.birt.dam.repository.TeamRepository;
+import eus.birt.dam.domain.Editorial;
+import eus.birt.dam.repository.EditorialRepository;
 
 @CrossOrigin (origins= {"http://localhost:4200"})
 @RestController
-@RequestMapping ("api/teams")
-public class TeamController {
+@RequestMapping ("api/editoriales")
+public class EditorialController {
 
 @Autowired
-TeamRepository teamRepository;
+EditorialRepository editorialRepository;
 	
 	@GetMapping({"/",""})
-	public List <Team> index() {
-	return teamRepository.findAll();
+	public List <Editorial> index() {
+	return editorialRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Team show(@PathVariable("id") Long id) {
-		return teamRepository.findById(id).orElse(null);
+	public Editorial show(@PathVariable("id") Long id) {
+		return editorialRepository.findById(id).orElse(null);
 	}
 	
 	@PostMapping({"/",""})
 	@ResponseStatus (HttpStatus.CREATED)
-	public Team create(@RequestBody Team team) {
-		return teamRepository.save(team);
+	public Editorial create(@RequestBody Editorial editorial) {
+		return editorialRepository.save(editorial);
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus (HttpStatus.CREATED)
-	public Team update(@RequestBody Team team, @PathVariable("id") Long id) {
-		Team tempTeam = teamRepository.findById(id).orElse(null);
+	public Editorial update(@RequestBody Editorial editorial, @PathVariable("id") Long id) {
+		Editorial tempEditorial = editorialRepository.findById(id).orElse(null);
 		
-		tempTeam.setName(team.getName());
-		tempTeam.setCity(team.getCity());
-		tempTeam.setNationality(team.getNationality());
-		tempTeam.setManager(team.getManager());
+		tempEditorial.setNombre(editorial.getNombre());
+		tempEditorial.setCiudad(editorial.getCiudad());
+		tempEditorial.setPais(editorial.getPais());
+		tempEditorial.setManager(editorial.getManager());
 		//Al ser un id diferente, el método save hace en realidad un update
-		return teamRepository.save(tempTeam);
+		return editorialRepository.save(tempEditorial);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus (HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Long id) {
-		teamRepository.deleteById(id);
+		editorialRepository.deleteById(id);
 	}
 	
 }

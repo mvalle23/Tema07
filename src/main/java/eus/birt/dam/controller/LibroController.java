@@ -16,55 +16,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import eus.birt.dam.domain.Cyclist;
-import eus.birt.dam.repository.CyclistRepository;
-import eus.birt.dam.repository.TeamRepository;
+import eus.birt.dam.domain.Libro;
+import eus.birt.dam.repository.LibroRepository;
+import eus.birt.dam.repository.EditorialRepository;
 
 @CrossOrigin (origins= {"http://localhost:4200"})
 @RestController
-@RequestMapping ("api/cyclists")
-public class CyclistController {
+@RequestMapping ("api/libros")
+public class LibroController {
 
 	@Autowired
-	CyclistRepository cyclistRepository;
+	LibroRepository 	libroRepository;
 	
 	@Autowired
-	TeamRepository teamRepository;
+	EditorialRepository editorialRepository;
 		
 	@GetMapping({"/",""})
-	public List <Cyclist> index() {
-		return cyclistRepository.findAll();
+	public List <Libro> index() {
+		return libroRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Cyclist show(@PathVariable("id") Long id) {
-		return cyclistRepository.findById(id).orElse(null);
+	public Libro show(@PathVariable("id") Long id) {
+		return libroRepository.findById(id).orElse(null);
 	}
 	
 	@PostMapping({"","/"})
 	@ResponseStatus (HttpStatus.CREATED)
-	public Cyclist create(@RequestBody Cyclist cyclist) {
-		return cyclistRepository.save(cyclist);
+	public Libro create(@RequestBody Libro libro) {
+		return libroRepository.save(libro);
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus (HttpStatus.CREATED)
-	public Cyclist update(@RequestBody Cyclist cyclist, @PathVariable("id") Long id) {
-		Cyclist tempCyclist = cyclistRepository.findById(id).orElse(null);
+	public Libro update(@RequestBody Libro libro, @PathVariable("id") Long id) {
+		Libro tempLibro = libroRepository.findById(id).orElse(null);
 		
-		tempCyclist.setFirstName(cyclist.getFirstName());
-		tempCyclist.setLastName(cyclist.getLastName());
-		tempCyclist.setBirthDate(cyclist.getBirthDate());
-		tempCyclist.setNationality(cyclist.getNationality());
-		tempCyclist.setTeam(cyclist.getTeam());
+		tempLibro.setTitulo(libro.getTitulo());
+		tempLibro.setAutor(libro.getAutor());
+		tempLibro.setGenero(libro.getGenero());
+		tempLibro.setFechapublicacion(libro.getFechapublicacion());
+		tempLibro.setEditorial(libro.getEditorial());
 		
-		return cyclistRepository.save(tempCyclist);
+		return libroRepository.save(tempLibro);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus (HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Long id) {
-		cyclistRepository.deleteById(id);
+		libroRepository.deleteById(id);
 	}
 	
 }

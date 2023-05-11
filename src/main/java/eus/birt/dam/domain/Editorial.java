@@ -24,8 +24,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="team")
-public class Team implements Serializable{
+@Table(name="editorial")
+public class Editorial implements Serializable{
 	/**
 	 * 
 	 */
@@ -35,23 +35,23 @@ public class Team implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private String name;
+	private String nombre;
 	
-	private String city;
+	private String ciudad;
 	
-	private String nationality;
+	private String pais;
 	
 	private String manager;
 	
 	@JsonManagedReference
-	@OneToMany (mappedBy = "team",cascade = CascadeType.ALL)
-	List <Cyclist> cyclists = new ArrayList<>();
+	@OneToMany (mappedBy = "editorial",cascade = CascadeType.ALL)
+	List <Libro> libros = new ArrayList<>();
 
-	public Team(String name, String city, String nationality, String manager) {
+	public Editorial(String nombre, String ciudad, String pais, String manager) {
 		super();
-		this.name = name;
-		this.city = city;
-		this.nationality = nationality;
+		this.nombre = nombre;
+		this.ciudad = ciudad;
+		this.pais = pais;
 		this.manager = manager;
 	}
 	

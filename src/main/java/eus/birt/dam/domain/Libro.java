@@ -27,8 +27,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="cyclist")
-public class Cyclist implements Serializable {
+@Table(name="libro")
+public class Libro implements Serializable {
 	/**
 	 * 
 	 */
@@ -38,35 +38,35 @@ public class Cyclist implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="first_name")
-	private String firstName;
+	@Column(name="titulo")
+	private String titulo;
 	
-	@Column(name="last_name")
-	private String lastName;
+	@Column(name="autor")
+	private String autor;
 	
-	@Column(name="birth_date")
+	@Column(name="genero")
+	private String genero;
+	
 	@DateTimeFormat (pattern = "yyyy-MM-dd")
-	private LocalDate birthDate;
-	
-	private String nationality;
+	private LocalDate fechapublicacion;
 	
 	@JsonBackReference
 	@ManyToOne
-	@JoinColumn (name = "team_id")
-	private Team team;
+	@JoinColumn (name = "editorial_id")
+	private Editorial editorial;
 
 	//Añade propiedad teamName a JSON 
-	@JsonProperty("teamName")
-	public String getTeamName() {
-	    return team != null ? team.getName() : null;
+	@JsonProperty("EditorialName")
+	public String getEditorialName() {
+	    return editorial != null ? editorial.getNombre() : null;
 	}
 
-	public Cyclist(String firstName, String lastName, LocalDate birthDate, String nationality, Team team) {
+	public Libro(String titulo, String autor, String genero, LocalDate fechapublicacion, Editorial editorial) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthDate = birthDate;
-		this.nationality = nationality;
-		this.team = team;
+		this.titulo = titulo;
+		this.autor = autor;
+		this.genero = genero;
+		this.fechapublicacion = fechapublicacion;
+		this.editorial = editorial;
 	}
 }
